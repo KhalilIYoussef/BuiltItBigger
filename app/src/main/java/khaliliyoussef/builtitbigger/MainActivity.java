@@ -1,8 +1,6 @@
 package khaliliyoussef.builtitbigger;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,7 +11,7 @@ import android.widget.Toast;
 
 
 import khaliliyoussef.androidlib.DisplayActivity;
-import khaliliyoussef.builtitbigger.flavors.free.FreeActivity;
+
 
 public class MainActivity extends AppCompatActivity
 {
@@ -51,8 +49,7 @@ public class MainActivity extends AppCompatActivity
 
     public void tellJoke(View view) {
 
-        if (BuildConfig.PAID_VERSION)
-        {
+
             // this is the flag configured in build.gradle
             //piad
             Toast.makeText(this, "paid Version $$$", Toast.LENGTH_SHORT).show();
@@ -67,14 +64,8 @@ public class MainActivity extends AppCompatActivity
                 }
             }.execute(this);
 
-        }
-        else
-        {//free
-            Toast.makeText(this, "your free Version", Toast.LENGTH_SHORT).show();
-Intent intent =new Intent (getBaseContext(), FreeActivity.class);
-            startActivity(intent);
 
-        }
+
 
 
     }
