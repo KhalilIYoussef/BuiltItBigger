@@ -12,8 +12,8 @@ TextView mTextView;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent mIntent=getIntent();
-        mIntent.getStringExtra("joke");
+      String Joke= mIntent.getStringExtra("joke");
         mTextView= (TextView) findViewById(R.id.tv_android_library);
-
+mTextView.setText(Joke);
     }
 }
