@@ -2,9 +2,9 @@ package com.example;
 
 public class JokeTeller
 {
-    public static String tellJoke()
+    public static String tellAJoke()
     {
         //what is the opposite of Ipad you bad
-        return  "what a funy joke you got there";
+        return  "What is the opposite of Ipad You Pad";
     }
 }
