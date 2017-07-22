@@ -1,6 +1,7 @@
 package khaliliyoussef.builtitbigger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Pair;
 import android.widget.Toast;
@@ -14,26 +15,27 @@ import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 
 import java.io.IOException;
 
+import khaliliyoussef.androidlib.DisplayActivity;
+
+import static khaliliyoussef.androidlib.DisplayActivity.JOKE;
+
 /**
  * Created by Khalil on 7/21/2017.
  */
 
-class EndpointsAsyncTask extends AsyncTask<Context,Void, String>
-{
+class EndpointsAsyncTask extends AsyncTask<android.support.v4.util.Pair<Context, String>, Void, String> {
     private static MyApi myApiService = null;
     private Context context;
 
     @Override
-    protected String doInBackground(Context...params)
-    {
+    protected String doInBackground(android.support.v4.util.Pair<Context, String>... params) {
         if(myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                     // options for running against local devappserver
                     // - 10.0.2.2 is localhost's IP address in Android emulator
-                    //if it's an Real Device you put your IP
                     // - turn off compression when running against local devappserver
-                    .setRootUrl("http://10.0.2.2:8080/_ah/api/")
+                    .setRootUrl("http://192.168.43.51:8080/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
                         public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
@@ -45,11 +47,11 @@ class EndpointsAsyncTask extends AsyncTask<Context,Void, String>
             myApiService = builder.build();
         }
 
-        context = params[0];
-//        String name = params[0];
+        context = params[0].first;
+        String name = params[0].second;
 
         try {
-            return myApiService.sayHi("").execute().getData();
+            return myApiService.sayHi(name).execute().getData();
         } catch (IOException e) {
             return e.getMessage();
         }
@@ -59,11 +61,6 @@ class EndpointsAsyncTask extends AsyncTask<Context,Void, String>
     protected void onPostExecute(String result) {
         Toast.makeText(context, result, Toast.LENGTH_LONG).show();
     }
-
-
 }
-
 //          compile group: 'com.google.api-client', name: 'google-api-client', version: '1.22.0'
 //            compile group: 'com.google.api-client', name: 'google-api-client-android', version: '1.22.0'
-//          compile group: 'com.google.api-client', name: 'google-api-client', version: '1.22.0'
-//        compile group: 'com.google.api-client', name: 'google-api-client-android', version: '1.22.0'

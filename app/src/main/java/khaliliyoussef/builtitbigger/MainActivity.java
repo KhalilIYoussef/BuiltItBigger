@@ -1,29 +1,33 @@
 package khaliliyoussef.builtitbigger;
 
+
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
+
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
 
 
 import khaliliyoussef.androidlib.DisplayActivity;
+
+import static khaliliyoussef.androidlib.DisplayActivity.JOKE;
 
 
 public class MainActivity extends AppCompatActivity
 {
 
-    public static final String JOKE = "joke";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
     }
 
 
@@ -52,19 +56,22 @@ public class MainActivity extends AppCompatActivity
     public void tellJoke(View view) {
 
 
+
             // this is the flag configured in build.gradle
             //piad
-            Toast.makeText(this, "$$$", Toast.LENGTH_SHORT).show();
-         new EndpointsAsyncTask() {
-
+new EndpointsAsyncTask()
+        {
             @Override
-            protected void onPostExecute(String result) {
-                Intent intent = new Intent(getApplicationContext(), DisplayActivity.class);
+            protected void onPostExecute(String result)
+            {
+                super.onPostExecute(result);
+                Intent intent =new Intent(getApplicationContext(),DisplayActivity.class);
                 intent.putExtra(JOKE, result);
                 startActivity(intent);
-                super.onPostExecute(result);
             }
-        }.execute(this);
+        }
+        .execute(new Pair<Context, String>(this, " :-)"));
+
 
 
 
